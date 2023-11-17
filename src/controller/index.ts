@@ -12,7 +12,6 @@ const axiosMovie = axios.create({
 })
 
 // place all api here
-// popular list movie
 async function getPopular() {
   const response = await axiosMovie.get<Popular>(`/movie/popular`)
   return response.data

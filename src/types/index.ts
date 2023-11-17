@@ -19,3 +19,12 @@ export interface Search {
     page: number,
     results: SearchMovie[],
 }
+
+export interface MenuBarProps {
+    onSearch: (movies: SearchMovie[]) => void;
+}
+
+export interface SearchProps {
+    movies: SearchMovie[] | null;
+}
+  
