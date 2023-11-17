@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { PopularMovie } from "../types/index";
-import { usePopular } from "../controller";
-import MovieList from "./base/List";
+import { useState, useEffect } from 'react';
+import { PopularMovie } from '../types/index';
+import { usePopular } from '../controller';
+import MovieList from './base/List';
 
 const PopularList = () => {
   const { data } = usePopular();

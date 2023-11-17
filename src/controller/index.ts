@@ -1,6 +1,6 @@
-import axios from "axios"
-import { Popular, Search } from "../types"
-import { useQuery } from "react-query"
+import axios from 'axios'
+import { Popular, Search } from '../types'
+import { useQuery } from 'react-query'
 
 // global custom axios for TMDB
 const axiosMovie = axios.create({

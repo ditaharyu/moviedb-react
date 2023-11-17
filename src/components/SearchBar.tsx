@@ -1,13 +1,19 @@
-import { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import { useSearch } from '../controller';
 import { MenuBarProps } from '../types';
+import IconSearch from '../assets/image/magnifying-glass.svg';
 
-const MenuBar: FunctionComponent<MenuBarProps> = ({ onSearch }) => {
+const MenuBar: React.FC<MenuBarProps> = ({ onSearch }) => {
   const [query, setQuery] = useState('');
-  // const { data: searchResult, isError, isLoading } = useSearch(query);
+  
+  // const searchResult = query ? useSearch(query).data : null;
   const { data: searchResult } = useSearch(query);
 
-  const handleSearch = async () => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSearch = () => {
     try {
       if (searchResult && Array.isArray(searchResult.results)) {
         onSearch(searchResult.results);
@@ -30,16 +36,15 @@ const MenuBar: FunctionComponent<MenuBarProps> = ({ onSearch }) => {
           placeholder="Search Movie"
           className="w-full px-4 py-0 text-gray-900 bg-transparent border-none outline-none focus:outline-none"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleInputChange}
+          onKeyUp={(e) => { if (e.key === 'Enter') handleSearch(); }}
         />
-        <button
-          className="rounded-full bg-orange-400 hover:bg-orange-500 sm:px-4 px-2 m-[2px] text-white"
-          onClick={handleSearch}
-        >
-          Search
+        <button onClick={handleSearch}>
+          <img src={IconSearch} alt="icon-search" className="w-6 mr-4" />
         </button>
       </div>
     </main>
   );
 };
+
 export default MenuBar;
