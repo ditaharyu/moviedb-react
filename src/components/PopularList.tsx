@@ -23,7 +23,7 @@ const PopularList = () => {
     if (data && data.results) {
       for (let i = 0; i < Math.ceil(data.results.length / itemsPerRow); i++) {
         const rowItems = data.results.slice(i * itemsPerRow, (i + 1) * itemsPerRow).map((movie: PopularMovie, id: number) => (
-          <MovieList key={id} title={movie.title} poster_path={movie.poster_path} />
+          <MovieList key={id} title={movie.title} poster_path={movie.poster_path} id={movie.id} />
         ));
         rows.push(
           <div key={i} style={{ display: currentSlide === i ? 'grid' : 'none' }} className="grid grid-cols-2 gap-2 pt-4 sm:gap-4 sm:grid-cols-4">

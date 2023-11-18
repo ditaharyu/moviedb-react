@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import SearchList from './components/SearchList';
 import PopularList from './components/PopularList';
 import { SearchMovie } from './types';
+import MovieDetail from './views/Details';
 
 function App() {
   const [searchResults, setSearchResults] = useState<SearchMovie[]>([]);
@@ -21,6 +22,7 @@ function App() {
         <span className="text-xl font-bold">Popular</span>
         <PopularList />
       </div>
+      <MovieDetail />
     </main>
   );
 }

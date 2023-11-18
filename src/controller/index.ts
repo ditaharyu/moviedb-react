@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Popular, Search } from '../types'
+import { Popular, Search, DetailMovie } from '../types'
 import { useQuery } from 'react-query'
 
 // global custom axios for TMDB
@@ -30,4 +30,15 @@ export async function getSearch(title:string) {
 
 export function useSearch(title: string) {
   return useQuery(['search', title], () => getSearch(title))
+}
+
+export async function getDetail(id: number) {
+  const response = await axiosMovie.get<DetailMovie>(`/movie/${id}`, {
+    params: { movie_id: id }
+  })
+  return response.data
+}
+
+export function useDetail(id: number) {
+  return useQuery(['detail', id], () => getDetail(id))
 }

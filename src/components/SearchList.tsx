@@ -7,8 +7,8 @@ const SearchList: React.FC<SearchProps> = ({ movies }) => {
   
   if (movies?.length == 0) {
     return (
-      <div>
-        <span>Empty</span>
+      <div className="text-center">
+        <span>Cannot find movie(s)</span>
       </div>
     )
   }
@@ -16,7 +16,7 @@ const SearchList: React.FC<SearchProps> = ({ movies }) => {
   return (
     <div className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-5">
       {movies?.map((movie: SearchMovie, id: number) => (
-        <MovieList key={id} title={movie.title} poster_path={movie.poster_path} />
+        <MovieList key={id} title={movie.title} poster_path={movie.poster_path} id={movie.id} />
       ))}
     </div>
   );
