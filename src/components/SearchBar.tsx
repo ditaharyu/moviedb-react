@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearch } from '../controller';
 import { MenuBarProps } from '../types';
 import IconSearch from '../assets/image/magnifying-glass.svg';
@@ -7,24 +7,20 @@ const MenuBar: React.FC<MenuBarProps> = ({ onSearch }) => {
   const [query, setQuery] = useState('');
   
   // const searchResult = query ? useSearch(query).data : null;
-  const { data: searchResult } = useSearch(query);
+  const { data: searchResult, refetch } = useSearch(query);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
-  const handleSearch = () => {
-    try {
-      if (searchResult && Array.isArray(searchResult.results)) {
-        onSearch(searchResult.results);
-      } else {
-        // Handle empty or undefined search results
-        onSearch([]);
-      }
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    if (searchResult && Array.isArray(searchResult.results)) {
+      onSearch(searchResult.results);
     }
-  };
+    return () => {
+      // onSearch([]);
+    }
+  }, [onSearch, searchResult])
   
   return (
     <main className="flex justify-between">
@@ -37,9 +33,9 @@ const MenuBar: React.FC<MenuBarProps> = ({ onSearch }) => {
           className="w-full px-4 py-0 text-gray-900 bg-transparent border-none outline-none focus:outline-none"
           value={query}
           onChange={handleInputChange}
-          onKeyUp={(e) => { if (e.key === 'Enter') handleSearch(); }}
+          onKeyUp={(e) => { if (e.key === 'Enter') refetch(); }}
         />
-        <button onClick={handleSearch}>
+        <button onClick={() => refetch()}>
           <img src={IconSearch} alt="icon-search" className="w-6 mr-4" />
         </button>
       </div>

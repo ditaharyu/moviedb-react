@@ -11,7 +11,6 @@ const axiosMovie = axios.create({
   }
 })
 
-// place all api here
 async function getPopular() {
   const response = await axiosMovie.get<Popular>(`/movie/popular`)
   return response.data
@@ -29,7 +28,7 @@ export async function getSearch(title:string) {
 }
 
 export function useSearch(title: string) {
-  return useQuery(['search', title], () => getSearch(title))
+  return useQuery(['search', title], () => getSearch(title), {enabled:false})
 }
 
 export async function getDetail(id: number) {
